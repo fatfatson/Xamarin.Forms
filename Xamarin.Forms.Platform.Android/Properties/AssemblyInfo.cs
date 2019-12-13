@@ -5,7 +5,7 @@ using Xamarin.Forms.Platform.Android;
 
 // These renderers are now registered via the RenderWithAttribute in the Android Forwarders project.
 // Note that AppCompat and FastRenderers are also registered conditionally in FormsAppCompatActivity.LoadApplication
-#if ROOT_RENDERERS
+//#if ROOT_RENDERERS
 [assembly: ExportRenderer (typeof (BoxView), typeof (BoxRenderer))]
 [assembly: ExportRenderer (typeof (Entry), typeof (EntryRenderer))]
 [assembly: ExportRenderer (typeof (Editor), typeof (EditorRenderer))]
@@ -38,7 +38,7 @@ using Xamarin.Forms.Platform.Android;
 [assembly: ExportRenderer (typeof (Page), typeof (PageRenderer))]
 [assembly: ExportRenderer (typeof (MasterDetailPage), typeof (MasterDetailRenderer))]
 [assembly: ExportRenderer (typeof (RefreshView), typeof (RefreshViewRenderer))]
-#endif
+//#endif
 
 [assembly: ExportRenderer(typeof(Shell), typeof(ShellRenderer))]
 

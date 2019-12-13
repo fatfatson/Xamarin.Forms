@@ -136,6 +136,13 @@ namespace Xamarin.Forms.Platform.iOS
 				Log.Warning(nameof(FileImageSourceHandler), "Could not find image: {0}", imagesource);
 			}
 
+			if (scale > 1)
+			{
+				image = new UIImage(image.CGImage, scale, UIImageOrientation.Up);
+
+			}
+
+
 			return Task.FromResult(image);
 		}
 	}
@@ -194,8 +201,8 @@ namespace Xamarin.Forms.Platform.iOS
 		readonly Color _defaultColor = Color.White;
 
 		public Task<UIImage> LoadImageAsync(
-			ImageSource imagesource, 
-			CancellationToken cancelationToken = default(CancellationToken), 
+			ImageSource imagesource,
+			CancellationToken cancelationToken = default(CancellationToken),
 			float scale = 1f)
 		{
 			UIImage image = null;
@@ -207,7 +214,7 @@ namespace Xamarin.Forms.Platform.iOS
 				var iconcolor = fontsource.Color.IsDefault ? _defaultColor : fontsource.Color;
 				var attString = new NSAttributedString(fontsource.Glyph, font: font, foregroundColor: iconcolor.ToUIColor());
 				var imagesize = ((NSString)fontsource.Glyph).GetSizeUsingAttributes(attString.GetUIKitAttributes(0, out _));
-				
+
 				UIGraphics.BeginImageContextWithOptions(imagesize, false, 0f);
 				var ctx = new NSStringDrawingContext();
 				var boundingRect = attString.GetBoundingRect(imagesize, (NSStringDrawingOptions)0, ctx);
