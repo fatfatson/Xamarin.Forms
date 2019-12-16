@@ -70,3 +70,5 @@ caketools/
 .ionide/**
 /.nuspec
 .XamarinFormsVersionFile.txt
+XFCorePostProcessor.Tasks/bin/**
+NuGet.exe

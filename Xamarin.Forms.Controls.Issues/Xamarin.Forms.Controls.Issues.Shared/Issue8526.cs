@@ -24,9 +24,9 @@ namespace Xamarin.Forms.Controls.Issues
 	{
 		const string Success = "Success";
 
-		protected override async void Init()
+		protected override void Init()
 		{
-			await DisplayPromptAsync(Success, "This prompt should display when the page loads.");
+			//await DisplayPromptAsync(Success, "This prompt should display when the page loads.");
 		}
 
 #if UITEST
