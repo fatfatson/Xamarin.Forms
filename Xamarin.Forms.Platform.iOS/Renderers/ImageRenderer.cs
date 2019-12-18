@@ -148,6 +148,11 @@ namespace Xamarin.Forms.Platform.iOS
 				Log.Warning(nameof(FileImageSourceHandler), "Could not find image: {0}", imagesource);
 			}
 
+			if (image != null && scale > 1)
+			{
+				image = new UIImage(image.CGImage, scale, UIImageOrientation.Up);
+			}
+
 			return Task.FromResult(image);
 		}
 
