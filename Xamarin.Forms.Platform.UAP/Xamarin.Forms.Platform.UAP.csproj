@@ -8,7 +8,7 @@
     <SkipMicrosoftUIXamlCheckTargetPlatformVersion>true</SkipMicrosoftUIXamlCheckTargetPlatformVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <GenerateLibraryLayout>true</GenerateLibraryLayout>
+    <GenerateLibraryLayout Condition="'$(MSBuildAssemblyVersion)' != '16.0'">true</GenerateLibraryLayout>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -126,12 +126,4 @@
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.5" />
   </ItemGroup>
-  <!-- Workaround CI bug where xbf files aren't being copied to release output folder. Revisit once we move to VS2019 -->
-  <!-- <Target Name="CopyMissedXbfFiles" AfterTargets="AfterBuild" Condition="'$(CI)' == 'true'">
-    <ItemGroup>
-      <OutputFiles Include="obj\$(Configuration)\$(TargetFramework)\**\*.xbf"></OutputFiles>
-    </ItemGroup>
-    <Copy SourceFiles="@(OutputFiles)" 
-          DestinationFolder="bin\$(Configuration)\$(TargetFramework)\Xamarin.Forms.Platform.UAP\%(RecursiveDir)"></Copy>
-  </Target> -->
 </Project>
