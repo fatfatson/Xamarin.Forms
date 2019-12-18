@@ -26,9 +26,6 @@ jobs:
     dependsOn: ${{ parameters.dependsOn }}
     strategy:
       matrix:
-        debug:
-          BuildConfiguration:  ${{ parameters.buildConfiguration }}
-          BuildPlatform: ${{ parameters.buildPlatform }}
         release:
           BuildConfiguration:  ${{ parameters.releaseBuildConfiguration }}
           BuildPlatform: ${{ parameters.buildPlatform }}
