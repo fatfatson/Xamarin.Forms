@@ -23,8 +23,6 @@ variables:
   value: true
 - name: DOTNET_VERSION
   value: 3.0.100
-- name: winVmImage
-  value: 'Hosted Windows 2019 with VS2019'
 
 resources:
   repositories:
@@ -72,6 +70,21 @@ jobs:
     buildConfiguration: $(DefaultBuildConfiguration)
     buildPlatform: $(DefaultBuildPlatform)
     provisionatorPath : 'build/provisioning/provisioning.csx'
+    copyFiles: 'true'
+    copyUwpFiles: 'false'
+
+- template: build/steps/build-windows.yml
+  parameters:
+    name: win_2019
+    displayName: Build Windows 2019 Phase
+    vmImage: 'Hosted Windows 2019 with VS2019'
+    targetFolder: Xamarin.Forms.ControlGallery.Android/legacyRenderers/
+    msbuildExtraArguments: '/nowarn:VSX1000 /p:CreateAllAndroidTargets=true'
+    buildConfiguration: $(DefaultBuildConfiguration)
+    buildPlatform: $(DefaultBuildPlatform)
+    provisionatorPath : 'build/provisioning/provisioning.csx'
+    copyFiles: 'false'
+    copyUwpFiles: 'true'
 
 - template: build/steps/build-android.yml
   parameters:
@@ -127,6 +140,7 @@ jobs:
   displayName: Nuget Phase
   dependsOn:
    - win
+   - win_2019
   condition: succeeded()
   pool:
     name: $(winVmImage)
