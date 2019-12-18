@@ -85,6 +85,7 @@ jobs:
     provisionatorPath : 'build/provisioning/provisioning.csx'
     copyFiles: 'false'
     copyUwpFiles: 'true'
+    slnPath: '.Xamarin.Forms.UAP.nuget.sln'
 
 - template: build/steps/build-android.yml
   parameters:
