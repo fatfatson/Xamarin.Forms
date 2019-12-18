@@ -26,6 +26,9 @@ jobs:
     dependsOn: ${{ parameters.dependsOn }}
     strategy:
       matrix:
+        debug:
+          BuildConfiguration:  ${{ parameters.buildConfiguration }}
+          BuildPlatform: ${{ parameters.buildPlatform }}
         release:
           BuildConfiguration:  ${{ parameters.releaseBuildConfiguration }}
           BuildPlatform: ${{ parameters.buildPlatform }}
@@ -70,6 +73,15 @@ jobs:
         configuration: '$(BuildConfiguration)'
         msbuildArguments: ${{ parameters.msbuildExtraArguments }} /bl:$(Build.ArtifactStagingDirectory)\win-$(BuildConfiguration).binlog
 
+
+      - task: MSBuild@1
+        displayName: 'Build solution UAP project'
+        name: winbuild_project
+        inputs:
+          solution: Xamarin.Forms.Platform.UAP\Xamarin.Forms.Platform.UAP.csproj
+          configuration: '$(BuildConfiguration)'
+          msbuildArguments: ${{ parameters.msbuildExtraArguments }} /t:rebuild
+          
     - task: VSTest@2
       displayName: 'Unit Tests'
       inputs:
