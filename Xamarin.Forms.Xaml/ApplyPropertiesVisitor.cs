@@ -396,7 +396,8 @@ namespace Xamarin.Forms.Xaml
 			return null;
 		}
 
-		static bool TryConnectEvent(object element, string localName, bool attached, object value, object rootElement, IXmlLineInfo lineInfo, out Exception exception)
+		static bool TryConnectEvent(object element, string localName, bool attached, object value, object rootElement,
+			IXmlLineInfo lineInfo, out Exception exception)
 		{
 			exception = null;
 
@@ -410,18 +411,40 @@ namespace Xamarin.Forms.Xaml
 			if (eventInfo == null || IsNullOrEmpty(stringValue))
 				return false;
 
-			foreach (var mi in rootElement.GetType().GetRuntimeMethods()) {
-				if (mi.Name == (string)value) {
-					try {
-						eventInfo.AddEventHandler(element, mi.CreateDelegate(eventInfo.EventHandlerType, mi.IsStatic ? null : rootElement));
+			foreach (var mi in rootElement.GetType().GetRuntimeMethods())
+			{
+				if (mi.Name == (string)value)
+				{
+					try
+					{
+						eventInfo.AddEventHandler(element,
+							mi.CreateDelegate(eventInfo.EventHandlerType, mi.IsStatic ? null : rootElement));
 						return true;
-					} catch (ArgumentException) {
+					}
+					catch (ArgumentException)
+					{
 						// incorrect method signature
 					}
 				}
 			}
 
-			exception = new XamlParseException($"No method {value} with correct signature found on type {rootElement.GetType()}", lineInfo);
+			Exception inner = null;
+			var myDelegate = XamlMyExt.HookFindMethodDelegate?.Invoke(eventInfo.EventHandlerType, rootElement, (string)value);
+			if (myDelegate != null)
+			{
+				try
+				{
+					eventInfo.AddEventHandler(element, myDelegate);
+					return true;
+				}
+				catch (Exception e)
+				{
+					inner = e;
+				}
+			}
+
+			exception = new XamlParseException(
+				$"No method {value} with correct signature found on type {rootElement.GetType()}", lineInfo, inner);
 			return false;
 		}
 

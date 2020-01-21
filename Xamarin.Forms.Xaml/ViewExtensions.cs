@@ -32,7 +32,7 @@ namespace Xamarin.Forms.Xaml
 {
 	public static class Extensions
 	{
-		public static TXaml LoadFromXaml<TXaml>(this TXaml view, Type callingType) 
+		public static TXaml LoadFromXaml<TXaml>(this TXaml view, Type callingType)
 		{
 			XamlLoader.Load(view, callingType);
 			return view;
@@ -45,7 +45,7 @@ namespace Xamarin.Forms.Xaml
 		}
 
 #if DEBUG
-		public static TXaml LoadFromXaml_XS1<TXaml>(this TXaml view, string xaml)
+		public static TXaml LoadFromXaml_XS<TXaml>(this TXaml view, string xaml)
 		{
 			XamlLoader.Load(view, xaml);
 			return view;

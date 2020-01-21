@@ -56,7 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Xamarin.Forms.Core\Xamarin.Forms.Core.csproj">
-      <Project>{57b8b73d-c3b5-4c42-869e-7b2f17d354ac}</Project>
+      <Project>{4DD3469F-F72A-4326-9009-AD9A03C11714}</Project>
       <Name>Xamarin.Forms.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Xamarin.Forms.Platform.Android.FormsViewGroup\Xamarin.Forms.Platform.Android.FormsViewGroup.csproj">
