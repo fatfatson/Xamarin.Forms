@@ -331,6 +331,10 @@ namespace Xamarin.Forms.Xaml
 			var bpOwnerType = xamlelement.GetType();
 			var attached = GetRealNameAndType(ref bpOwnerType, propertyName.NamespaceURI, ref localName, context, lineInfo);
 			var property = GetBindableProperty(bpOwnerType, localName, lineInfo, false);
+			if (property == null && XamlMyExt.HookGetBindableProperty != null)
+			{
+				property = XamlMyExt.HookGetBindableProperty(xamlelement, localName);
+			}
 
 			//If the target is an event, connect
 			if (xpe == null && TryConnectEvent(xamlelement, localName, attached, value, rootElement, lineInfo, out xpe))

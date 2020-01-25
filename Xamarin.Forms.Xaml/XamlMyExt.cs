@@ -5,10 +5,16 @@ using System.Text;
 
 namespace Xamarin.Forms.Xaml
 {
+	public class XamlMyTest
+	{
+
+	}
+
 	public class XamlMyExt
 	{
 		public static Func<string, string, Type> FallbackTypeResolver { get; set; }
 		public static Func<Type, object> HookTypeInstantiate { get; set; }
 		public static Func<Type, object, string, Delegate> HookFindMethodDelegate { get; set; }
+		public static Func<object, string, BindableProperty> HookGetBindableProperty { get; set; }
 	}
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using Xamarin.Forms.Internals;
 using System.Runtime.CompilerServices;
+using Xamarin.Forms.Core.Xaml;
 
 namespace Xamarin.Forms
 {
@@ -117,7 +118,7 @@ namespace Xamarin.Forms
 					// Allow the object instance itself to provide its own TypeInfo 
 					TypeInfo currentType = current is IReflectableType reflectable ? reflectable.GetTypeInfo() : current.GetType().GetTypeInfo();
 					if (part.LastGetter == null || !part.LastGetter.DeclaringType.GetTypeInfo().IsAssignableFrom(currentType))
-						SetupPart(currentType, part);
+						SetupPart(current, currentType, part);
 
 					if (!isLast)
 						part.TryGetValue(current, out current);
@@ -292,7 +293,7 @@ namespace Xamarin.Forms
 		}
 
 
-		void SetupPart(TypeInfo sourceType, BindingExpressionPart part)
+		void SetupPart(object target,TypeInfo sourceType, BindingExpressionPart part)
 		{
 			part.Arguments = null;
 			part.LastGetter = null;
@@ -353,6 +354,7 @@ namespace Xamarin.Forms
 			}
 			else {
 				TypeInfo type = sourceType;
+				property = CoreMyExt.HookGetProperty?.Invoke(target, part.Content);
 				while (type != null && property == null) {
 					property = type.GetDeclaredProperty(part.Content);
 					type = type.BaseType?.GetTypeInfo();

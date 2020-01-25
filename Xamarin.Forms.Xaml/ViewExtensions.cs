@@ -45,7 +45,7 @@ namespace Xamarin.Forms.Xaml
 		}
 
 #if DEBUG
-		public static TXaml LoadFromXaml_XS<TXaml>(this TXaml view, string xaml)
+		public static TXaml LoadFromXaml_XS2<TXaml>(this TXaml view, string xaml)
 		{
 			XamlLoader.Load(view, xaml);
 			return view;
