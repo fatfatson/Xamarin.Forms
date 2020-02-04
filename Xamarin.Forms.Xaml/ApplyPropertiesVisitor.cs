@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Xml;
+using Xamarin.Forms.Core.Xaml;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml.Diagnostics;
 using Xamarin.Forms.Xaml.Internals;
@@ -591,6 +592,11 @@ namespace Xamarin.Forms.Xaml
 
 			var elementType = element.GetType();
 			var propertyInfo = elementType.GetRuntimeProperties().FirstOrDefault(p => p.Name == localName);
+			if (propertyInfo == null)
+			{
+				propertyInfo = CoreMyExt.HookGetProperty?.Invoke(element, localName);
+			}
+			
 			MethodInfo setter;
 			if (propertyInfo == null || !propertyInfo.CanWrite || (setter = propertyInfo.SetMethod) == null)
 				return false;
