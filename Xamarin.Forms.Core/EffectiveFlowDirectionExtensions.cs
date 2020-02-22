@@ -46,7 +46,7 @@ namespace Xamarin.Forms
 			else
 				return FlowDirection.RightToLeft;
 
-			throw new InvalidOperationException($"Cannot convert {self} to {nameof(FlowDirection)}.");
+			// throw new InvalidOperationException($"Cannot convert {self} to {nameof(FlowDirection)}.");
 		}
 
 		public static bool IsRightToLeft(this EffectiveFlowDirection self)
